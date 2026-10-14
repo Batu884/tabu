@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tabu — Websites, built and looked after</title>
+  <meta name="description" content="Tabu designs, builds, hosts and maintains websites for businesses. One team from first sketch to every update after launch.">
+  <meta property="og:title" content="Tabu — Websites, built and looked after">
+  <meta property="og:description" content="Design, development, hosting and maintenance. One team, end to end.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0d0f14">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.replace("no-js", "js");</script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- Intro loader -->
+  <div class="loader" aria-hidden="true">
+    <div class="loader__inner">
+      <svg class="loader__mark" viewBox="0 0 32 32">
+        <rect x="1.5" y="1.5" width="29" height="29" rx="7.5" pathLength="1"/>
+        <path d="M9 10.5h14M16 10.5v12" pathLength="1"/>
+        <circle cx="23" cy="22" r="2.2"/>
+      </svg>
+      <div class="loader__word"><span>t</span><span>a</span><span>b</span><span>u</span></div>
+      <div class="loader__bar"><i></i></div>
+      <div class="loader__count"><span>0</span>%</div>
+    </div>
+  </div>
+
+  <!-- Custom cursor (fine pointers only) -->
+  <div class="cursor" aria-hidden="true"><div class="cursor__ring"></div><div class="cursor__dot"></div></div>
+
+  <!-- Scroll progress -->
+  <div class="progress" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="nav" id="top">
+    <div class="container nav__inner">
+      <a href="#top" class="brand" aria-label="Tabu home">
+        <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
+          <rect width="32" height="32" rx="8" fill="currentColor"/>
+          <path d="M8 10h16M16 10v13" stroke="var(--bg-dark)" stroke-width="3.2" stroke-linecap="round"/>
+          <circle cx="23" cy="22" r="2.2" fill="var(--accent)"/>
+        </svg>
+        <span>tabu</span>
+      </a>
+      <button class="nav__toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+        <span></span><span></span>
+      </button>
+      <nav class="nav__menu" id="nav-menu">
+        <span class="nav__pill" aria-hidden="true"></span>
+        <a href="#services">Services</a>
+        <a href="#process">Process</a>
+        <a href="#stack">Under the hood</a>
+        <a href="#plans">Plans</a>
+        <a href="#team">Team</a>
+        <a href="#contact" class="btn btn--sm btn--accent magnetic"><span>Start a project</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <canvas class="hero__canvas" aria-hidden="true"></canvas>
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="hero__orb hero__orb--1" aria-hidden="true"></div>
+      <div class="hero__orb hero__orb--2" aria-hidden="true"></div>
+
+      <div class="container hero__inner">
+        <p class="eyebrow intro" style="--d:0"><span class="dot"></span> Design · Development · Hosting · Maintenance</p>
+        <h1 class="hero__title">
+          <span class="line"><span class="line__in" style="--d:1">Websites <span class="cycler" data-words="built,designed,hosted,maintained">built</span></span></span>
+          <span class="line"><span class="line__in" style="--d:2">properly,</span></span>
+          <span class="line"><span class="line__in grad" style="--d:3">and looked after</span></span>
+          <span class="line"><span class="line__in grad" style="--d:4">for good.</span></span>
+        </h1>
+        <p class="lead intro" style="--d:5">Tabu designs and builds fast, modern websites — then hosts and maintains them on our own infrastructure. One team from the first sketch to every update after launch.</p>
+        <div class="hero__cta intro" style="--d:6">
+          <a href="#contact" class="btn btn--accent magnetic"><span>Start a project <span aria-hidden="true" class="arrow">→</span></span></a>
+          <a href="#services" class="btn btn--ghost magnetic"><span>See what we do</span></a>
+        </div>
+
+        <div class="hero__stage intro" style="--d:7">
+          <div class="hero__window tilt" aria-hidden="true">
+            <div class="win__bar"><i></i><i></i><i></i><span class="win__url"><svg viewBox="0 0 16 16"><path d="M5 7V5a3 3 0 0 1 6 0v2"/><rect x="3.5" y="7" width="9" height="6.5" rx="1.5"/></svg><b class="typed" data-text="yourbusiness.com"></b><em class="caret"></em></span></div>
+            <div class="win__load"><i></i></div>
+            <div class="win__body">
+              <div class="mock__nav"><b></b><span></span><span></span><span></span></div>
+              <div class="mock__hero"><div><b></b><b></b><span></span><span></span><span class="btnm"></span></div><div class="mock__img"><div class="mock__chart"><i style="--h:40%"></i><i style="--h:65%"></i><i style="--h:50%"></i><i style="--h:80%"></i><i style="--h:70%"></i><i style="--h:95%"></i></div></div></div>
+              <div class="mock__cards"><div></div><div></div><div></div></div>
+            </div>
+            <div class="win__stats">
+              <div><strong>Performance</strong><em>Optimised</em></div>
+              <div><strong>SSL</strong><em>Active</em></div>
+              <div><strong>Backups</strong><em>Daily</em></div>
+              <div><strong>Monitoring</strong><em>24/7</em></div>
+            </div>
+          </div>
+          <div class="float-chip float-chip--a" aria-hidden="true"><span class="chip__dot"></span>Deployed to production</div>
+          <div class="float-chip float-chip--b" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M5 7V5a3 3 0 0 1 6 0v2"/><rect x="3.5" y="7" width="9" height="6.5" rx="1.5"/></svg>SSL secured</div>
+          <div class="float-chip float-chip--c" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2 12l4-4 3 3 5-6"/></svg>Fast on every device</div>
+        </div>
+      </div>
+      <a href="#services" class="scroll-hint" aria-label="Scroll to services"><span></span></a>
+    </section>
+
+    <!-- MARQUEE -->
+    <section class="marquee" aria-label="What we cover">
+      <div class="marquee__track">
+        <div class="marquee__group">
+          <span>Design</span><i>✦</i><span>Development</span><i>✦</i><span>Hosting</span><i>✦</i><span>Maintenance</span><i>✦</i><span>Performance</span><i>✦</i><span>Security</span><i>✦</i><span>SEO</span><i>✦</i><span>Backups</span><i>✦</i>
+        </div>
+        <div class="marquee__group" aria-hidden="true">
+          <span>Design</span><i>✦</i><span>Development</span><i>✦</i><span>Hosting</span><i>✦</i><span>Maintenance</span><i>✦</i><span>Performance</span><i>✦</i><span>Security</span><i>✦</i><span>SEO</span><i>✦</i><span>Backups</span><i>✦</i>
+        </div>
+      </div>
+    </section>
+
+    <!-- NUMBERS -->
+    <section class="strip">
+      <div class="container strip__inner">
+        <div class="reveal"><strong><span class="count" data-to="100">0</span>%</strong><span>Hand-coded, no page builders</span></div>
+        <div class="reveal"><strong><span class="count" data-to="24">0</span>/7</strong><span>Uptime monitoring</span></div>
+        <div class="reveal"><strong><span class="count" data-to="1">0</span> team</strong><span>From design to hosting</span></div>
+        <div class="reveal"><strong><span class="count" data-to="0" data-from="99">99</span> templates</strong><span>Everything built for you</span></div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section" id="services">
+      <div class="container">
+        <header class="section__head">
+          <p class="kicker scramble">Services</p>
+          <h2 class="split">Everything your website needs, under one roof.</h2>
+          <p class="sub reveal">Most businesses juggle a designer, a developer and a hosting company. With Tabu, it's one team that knows your site inside out.</p>
+        </header>
+
+        <div class="grid grid--4">
+          <article class="card spot tilt reveal">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg>
+            </div>
+            <span class="card__num">01</span>
+            <h3>Design</h3>
+            <p>Clean, on-brand layouts built around your customers — planned out and approved by you before a line of code is written.</p>
+            <ul class="ticks"><li>Brand-aligned visuals</li><li>Layout & page planning</li><li>Mobile-first design</li></ul>
+          </article>
+          <article class="card spot tilt reveal">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5"/><path d="M16 7l5 5-5 5"/><path d="M14 4l-4 16"/></svg>
+            </div>
+            <span class="card__num">02</span>
+            <h3>Development</h3>
+            <p>Hand-built, lightweight sites that load quickly, rank well and are easy to grow as your business does.</p>
+            <ul class="ticks"><li>Fast, clean code</li><li>SEO foundations</li><li>Contact forms & integrations</li></ul>
+          </article>
+          <article class="card spot tilt reveal">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></svg>
+            </div>
+            <span class="card__num">03</span>
+            <h3>Hosting</h3>
+            <p>Your site runs on infrastructure we manage ourselves — so when something needs attention, there's no third party to chase.</p>
+            <ul class="ticks"><li>SSL certificates included</li><li>Domain & DNS setup</li><li>Uptime monitoring</li></ul>
+          </article>
+          <article class="card spot tilt reveal">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4 2.5-2.5z"/></svg>
+            </div>
+            <span class="card__num">04</span>
+            <h3>Maintenance</h3>
+            <p>Websites aren't "done" at launch. We keep yours secure, backed up and up to date, and make content changes when you need them.</p>
+            <ul class="ticks"><li>Security & software updates</li><li>Regular backups</li><li>Content edits on request</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="section section--dark" id="process">
+      <div class="container">
+        <header class="section__head">
+          <p class="kicker scramble">How we work</p>
+          <h2 class="split">A clear process, start to finish.</h2>
+          <p class="sub reveal">You always know what's happening, what's next and what you're getting.</p>
+        </header>
+
+        <div class="steps-wrap">
+          <div class="steps__track" aria-hidden="true"><i></i></div>
+          <ol class="steps">
+            <li class="step reveal">
+              <span class="step__num">01</span>
+              <h3>Discover</h3>
+              <p>We talk through your business, your customers and what the website needs to achieve.</p>
+            </li>
+            <li class="step reveal">
+              <span class="step__num">02</span>
+              <h3>Design</h3>
+              <p>We map out the pages and design the look. You review and approve before we build.</p>
+            </li>
+            <li class="step reveal">
+              <span class="step__num">03</span>
+              <h3>Build</h3>
+              <p>We develop the site, test it across phones, tablets and desktops, and refine it with your feedback.</p>
+            </li>
+            <li class="step reveal">
+              <span class="step__num">04</span>
+              <h3>Launch & look after</h3>
+              <p>We put it live on our hosting and keep it fast, secure and up to date from then on.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- UNDER THE HOOD -->
+    <section class="section section--dark section--hood" id="stack">
+      <div class="container hood">
+        <div class="hood__copy">
+          <p class="kicker scramble">Under the hood</p>
+          <h2 class="split">We handle the technical side, so you don't have to.</h2>
+          <p class="sub reveal">Behind every Tabu site is a proper engineering setup — the same practices larger teams use, looked after by us.</p>
+          <ul class="hood__list">
+            <li class="reveal"><span class="hood__ic">⌥</span><div><strong>Version-controlled</strong><p>Every change is tracked and can be rolled back.</p></div></li>
+            <li class="reveal"><span class="hood__ic">⇪</span><div><strong>Automated deploys</strong><p>Updates go live cleanly, without downtime.</p></div></li>
+            <li class="reveal"><span class="hood__ic">⛨</span><div><strong>Security first</strong><p>HTTPS everywhere, kept patched and up to date.</p></div></li>
+            <li class="reveal"><span class="hood__ic">⟲</span><div><strong>Backups &amp; monitoring</strong><p>Regular snapshots, and we know if anything goes down.</p></div></li>
+          </ul>
+        </div>
+
+        <div class="term reveal tilt" aria-label="Example of a website deployment in a terminal">
+          <div class="term__bar"><i></i><i></i><i></i><span>tabu@server: ~/sites/yourbusiness</span><button class="term__replay" type="button" aria-label="Replay deployment animation">↻ Replay</button></div>
+          <pre class="term__body" aria-hidden="true"><code></code><span class="term__cursor"></span></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- PLANS -->
+    <section class="section" id="plans">
+      <div class="container">
+        <header class="section__head">
+          <p class="kicker scramble">Plans</p>
+          <h2 class="split">Pick the level of support that fits.</h2>
+          <p class="sub reveal">Every project is quoted individually — tell us what you need and we'll put together a clear, fixed price.</p>
+        </header>
+
+        <div class="grid grid--3 plans">
+          <article class="plan spot tilt reveal">
+            <h3>Starter</h3>
+            <p class="plan__desc">A sharp, professional presence for new or small businesses.</p>
+            <ul class="ticks">
+              <li>Up to 5 pages</li>
+              <li>Mobile-first design</li>
+              <li>Contact form</li>
+              <li>Hosting & SSL</li>
+              <li>Basic SEO setup</li>
+            </ul>
+            <a href="#contact" class="btn btn--outline" data-plan="Starter"><span>Get a quote</span></a>
+          </article>
+          <article class="plan plan--featured tilt reveal">
+            <span class="badge">Most popular</span>
+            <h3>Business</h3>
+            <p class="plan__desc">A complete website plus ongoing care, so you never have to think about it.</p>
+            <ul class="ticks">
+              <li>Everything in Starter</li>
+              <li>Larger, custom page set</li>
+              <li>Monthly maintenance & updates</li>
+              <li>Daily backups</li>
+              <li>Content edits included</li>
+            </ul>
+            <a href="#contact" class="btn btn--accent magnetic" data-plan="Business"><span>Get a quote</span></a>
+          </article>
+          <article class="plan spot tilt reveal">
+            <h3>Custom</h3>
+            <p class="plan__desc">For bigger ideas — bookings, online stores, dashboards or something new.</p>
+            <ul class="ticks">
+              <li>Tailored features</li>
+              <li>Third-party integrations</li>
+              <li>Priority support</li>
+              <li>Dedicated hosting options</li>
+              <li>Scoped to your project</li>
+            </ul>
+            <a href="#contact" class="btn btn--outline" data-plan="Custom"><span>Let's talk</span></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEAM -->
+    <section class="section section--soft" id="team">
+      <div class="container">
+        <header class="section__head">
+          <p class="kicker scramble">The team</p>
+          <h2 class="split">The people behind Tabu.</h2>
+          <p class="sub reveal">When you work with Tabu, you work directly with the founders — no account managers, no hand-offs.</p>
+        </header>
+
+        <div class="team">
+          <article class="person spot tilt reveal">
+            <div class="person__avatar" aria-hidden="true"><span>I</span></div>
+            <div>
+              <h3>Isaac</h3>
+              <p class="person__role">Co-founder &amp; Owner</p>
+              <p>Isaac co-founded Tabu to give businesses a website partner they can rely on long after launch day.</p>
+            </div>
+          </article>
+          <article class="person spot tilt reveal">
+            <div class="person__avatar person__avatar--alt" aria-hidden="true"><span>T</span></div>
+            <div>
+              <h3>Tawheed</h3>
+              <p class="person__role">Co-founder &amp; Owner</p>
+              <p>Tawheed co-founded Tabu with a focus on building sites that are fast, dependable and properly cared for.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="container container--narrow">
+        <header class="section__head">
+          <p class="kicker scramble">FAQ</p>
+          <h2 class="split">Common questions.</h2>
+        </header>
+
+        <div class="faq">
+          <details class="reveal">
+            <summary>How long does a website take?</summary>
+            <div class="faq__body"><p>It depends on size and scope. A small business site is typically a matter of weeks, not months. We'll give you a clear timeline once we understand what you need.</p></div>
+          </details>
+          <details class="reveal">
+            <summary>Do I need to sort out hosting myself?</summary>
+            <div class="faq__body"><p>No. We host your website on infrastructure we manage, set up your domain and SSL, and keep an eye on it for you.</p></div>
+          </details>
+          <details class="reveal">
+            <summary>I already have a website. Can you help?</summary>
+            <div class="faq__body"><p>Yes. We can redesign it, rebuild it, move it onto our hosting, or simply take over maintenance of what you have.</p></div>
+          </details>
+          <details class="reveal">
+            <summary>Can I make changes to my site after launch?</summary>
+            <div class="faq__body"><p>Absolutely. On a maintenance plan, just send us what you'd like changed and we'll handle it.</p></div>
+          </details>
+          <details class="reveal">
+            <summary>Will my website work on phones?</summary>
+            <div class="faq__body"><p>Every site we build is designed mobile-first and tested across phones, tablets and desktops.</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section section--dark section--contact" id="contact">
+      <div class="contact__glow" aria-hidden="true"></div>
+      <div class="container contact">
+        <div class="contact__intro">
+          <p class="kicker scramble">Contact</p>
+          <h2 class="split">Let's build something good.</h2>
+          <p class="sub reveal">Tell us a bit about your business and what you're looking for. We'll get back to you to talk it through — no obligation.</p>
+          <ul class="contact__list reveal">
+            <li><span>Email</span><a href="mailto:hello@tabu.com" data-email>hello@tabu.com</a></li>
+            <li><span>Response</span>Usually within one business day</li>
+          </ul>
+        </div>
+
+        <form class="form reveal" id="contact-form" novalidate>
+          <div class="form__row">
+            <div class="field"><input id="f-name" name="name" type="text" autocomplete="name" placeholder=" " required><label for="f-name">Name</label></div>
+            <div class="field"><input id="f-email" name="email" type="email" autocomplete="email" placeholder=" " required><label for="f-email">Email</label></div>
+          </div>
+          <div class="form__row">
+            <div class="field"><input id="f-business" name="business" type="text" autocomplete="organization" placeholder=" "><label for="f-business">Business</label></div>
+            <div class="field field--select">
+              <select id="f-plan" name="plan">
+                <option>Not sure yet</option>
+                <option>Starter</option>
+                <option>Business</option>
+                <option>Custom</option>
+                <option>Maintenance / hosting only</option>
+              </select>
+              <label for="f-plan">Interested in</label>
+            </div>
+          </div>
+          <div class="field"><textarea id="f-message" name="message" rows="5" placeholder=" " required></textarea><label for="f-message">Tell us about your project</label></div>
+          <button type="submit" class="btn btn--accent btn--block magnetic"><span>Send message <span aria-hidden="true" class="arrow">→</span></span></button>
+          <p class="form__note" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <a href="#top" class="brand" aria-label="Back to top">
+          <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
+            <rect width="32" height="32" rx="8" fill="currentColor"/>
+            <path d="M8 10h16M16 10v13" stroke="var(--bg-dark)" stroke-width="3.2" stroke-linecap="round"/>
+            <circle cx="23" cy="22" r="2.2" fill="var(--accent)"/>
+          </svg>
+          <span>tabu</span>
+        </a>
+        <nav class="footer__links">
+          <a href="#services">Services</a>
+          <a href="#process">Process</a>
+          <a href="#stack">Under the hood</a>
+          <a href="#plans">Plans</a>
+          <a href="#team">Team</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+      <div class="footer__word" aria-hidden="true">tabu</div>
+      <p class="footer__copy">© <span id="year">2026</span> Tabu. Designed, built &amp; hosted by Tabu.</p>
+    </div>
+  </footer>
+
+  <a href="#top" class="totop" aria-label="Back to top">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><circle class="totop__track" cx="24" cy="24" r="21"/><circle class="totop__ring" cx="24" cy="24" r="21" pathLength="1"/></svg>
+    <span aria-hidden="true">↑</span>
+  </a>
+
+  <script src="script.js"></script>
+</body>
+</html>
