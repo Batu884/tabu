@@ -1,5 +1,7 @@
 // Address that the contact form sends to. Change this to your real inbox.
 const CONTACT_EMAIL = "hello@tabu.com";
+// Enter the 10-digit Indian WhatsApp number to show the contact link.
+const CONTACT_WHATSAPP = "";
 
 (() => {
   const $ = (s, c = document) => c.querySelector(s);
@@ -14,6 +16,16 @@ const CONTACT_EMAIL = "hello@tabu.com";
 
   $("#year").textContent = new Date().getFullYear();
   $$("[data-email]").forEach((a) => { a.href = `mailto:${CONTACT_EMAIL}`; a.textContent = CONTACT_EMAIL; });
+
+  const whatsappNumber = CONTACT_WHATSAPP.replace(/\D/g, "");
+  if (/^[6-9]\d{9}$/.test(whatsappNumber)) {
+    const message = "Hi Tabu Digital, I'm interested in a website and SEO/AEO audit.";
+    $$("[data-whatsapp-link]").forEach((link) => {
+      link.href = `https://wa.me/91${whatsappNumber}?text=${encodeURIComponent(message)}`;
+      link.textContent = `+91 ${whatsappNumber}`;
+      link.closest("[data-whatsapp-contact]").hidden = false;
+    });
+  }
 
   /* ------------------------------------------------------------------
    * Text scramble — used for section kickers and the hero word cycler
@@ -69,29 +81,12 @@ const CONTACT_EMAIL = "hello@tabu.com";
   });
 
   /* ------------------------------------------------------------------
-   * Count-up numbers
-   * ------------------------------------------------------------------ */
-  function countUp(el) {
-    const to = +el.dataset.to, from = +(el.dataset.from || 0);
-    if (reduced) { el.textContent = to; return; }
-    const dur = 1800, t0 = performance.now();
-    const step = (now) => {
-      const t = clamp((now - t0) / dur, 0, 1);
-      const e = t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
-      el.textContent = Math.round(lerp(from, to, e));
-      if (t < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  }
-
-  /* ------------------------------------------------------------------
    * Reveal on scroll (staggered per parent)
    * ------------------------------------------------------------------ */
   const revealTargets = $$(".reveal, .split, .scramble");
   const show = (el) => {
     el.classList.add("is-visible");
     if (el.classList.contains("scramble")) scramble(el, el.dataset.text || el.textContent, 800);
-    $$(".count", el).forEach(countUp);
     if (el.matches(".term")) runTerminal();
   };
   $$(".scramble").forEach((el) => { el.dataset.text = el.textContent; });

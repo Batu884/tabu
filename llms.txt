@@ -1,0 +1,17 @@
+# Tabu
+
+> Tabu builds modern business websites and provides SEO, AEO and GEO services.
+
+## Official website
+- [Tabu](https://tabu.live/): Website design, development, hosting and maintenance.
+- [SEO, AEO & GEO](https://tabu.live/#aeo): Local SEO, conversational content, structured data, brand entity clarity and crawler access.
+- [Plans](https://tabu.live/#plans): Starter ₹18,000; Business ₹25,000 plus a retainer; Custom scoped individually.
+- [Contact](https://tabu.live/#contact): Request an AI search audit or discuss a project.
+
+## Service scope
+Starter includes up to five pages, mobile-first design, a contact form, hosting, SSL and basic on-page SEO.
+Business adds local SEO and Google Maps setup, AEO and GEO integration (llms.txt and FAQ schema), and monthly review and citation management.
+Custom covers e-commerce or multi-location SEO, API integrations and dedicated AI search tracking.
+
+## Accuracy
+Search rankings, AI citations and recommendations are determined by third-party platforms and are not guaranteed. Confirm custom scope and retainer pricing directly with Tabu.
