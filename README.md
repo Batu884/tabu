@@ -16,7 +16,7 @@ GitHub Pages restricts use as free hosting for an online business. Review https:
 
 ## Contact details
 
-Before launch, replace `CONTACT_EMAIL` in `script.js` and the fallback email link in `index.html` with a working inbox. The current value is `hello@tabu.com`.
+Before launch, replace `CONTACT_EMAIL` in `script.js` and the fallback email link in `index.html` with a working inbox. The current value is `info@tabu.live`.
 
 The contact form opens the visitor's email application with a prepared message. It does not submit messages to a server.
 

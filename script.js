@@ -1,5 +1,5 @@
 // Address that the contact form sends to. Change this to your real inbox.
-const CONTACT_EMAIL = "hello@tabu.com";
+const CONTACT_EMAIL = "info@tabu.live";
 // Enter the 10-digit Indian WhatsApp number to show the contact link.
 const CONTACT_WHATSAPP = "9746481580";
 
