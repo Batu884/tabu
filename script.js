@@ -22,7 +22,7 @@ const CONTACT_WHATSAPP = "9746481580";
     const message = "Hi Tabu Digital, I'm interested in a website and SEO/AEO audit.";
     $$("[data-whatsapp-link]").forEach((link) => {
       link.href = `https://wa.me/91${whatsappNumber}?text=${encodeURIComponent(message)}`;
-      link.textContent = `+91 ${whatsappNumber}`;
+      link.textContent = `+91 ${whatsappNumber.slice(0, 5)} ${whatsappNumber.slice(5)}`;
       link.closest("[data-whatsapp-contact]").hidden = false;
     });
   }
