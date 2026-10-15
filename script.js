@@ -179,11 +179,13 @@ const CONTACT_WHATSAPP = "9746481580";
    * Hero mouse parallax + window tilt (tilt also flattens on scroll)
    * ------------------------------------------------------------------ */
   const heroWin = $(".hero__window");
+  let heroScroll = window.scrollY;
+  window.addEventListener("scroll", () => { heroScroll = window.scrollY; }, { passive: true });
   const chips = $$(".float-chip");
   const glow = $(".hero__glow");
   function updateHeroWindow() {
     if (reduced) return;
-    const base = 16 * (1 - clamp(window.scrollY / 420, 0, 1));
+    const base = 16 * (1 - clamp(heroScroll / 420, 0, 1));
     heroWin.style.transform = `rotateX(${base - heroMouse.ny * 5}deg) rotateY(${heroMouse.nx * 7}deg)`;
   }
   if (!reduced) {
@@ -321,11 +323,19 @@ const CONTACT_WHATSAPP = "9746481580";
   const stepsWrap = $(".steps-wrap");
   const track = $(".steps__track");
   const steps = $$(".step");
-  let lastY = window.scrollY, ticking = false;
+  let lastY = window.scrollY, ticking = false, scrollPos = lastY;
+  // Layout is measured once per resize so scroll frames only write, never force a reflow.
+  let maxScroll = 0, stepsTop = 0, stepsH = 1, stepAt = [];
+  const measure = () => {
+    maxScroll = document.documentElement.scrollHeight - innerHeight;
+    const r = stepsWrap.getBoundingClientRect();
+    stepsTop = r.top + window.scrollY; stepsH = r.height || 1;
+    const horizontal = track.offsetWidth > track.offsetHeight;
+    stepAt = steps.map((s) => horizontal ? (s.offsetLeft + 32) / stepsWrap.offsetWidth : (s.offsetTop + 40) / stepsWrap.offsetHeight);
+  };
   const onScroll = () => {
-    const y = window.scrollY;
-    const max = document.documentElement.scrollHeight - innerHeight;
-    const p = max > 0 ? y / max : 0;
+    const y = scrollPos;
+    const p = maxScroll > 0 ? clamp(y / maxScroll, 0, 1) : 0;
     progress.style.setProperty("--p", p);
     totop.style.setProperty("--p", p);
     totop.classList.toggle("is-on", y > 700);
@@ -334,22 +344,20 @@ const CONTACT_WHATSAPP = "9746481580";
     if (y < lastY - 2) nav.classList.remove("is-hidden");
     lastY = y;
 
-    const r = stepsWrap.getBoundingClientRect();
-    const sp = clamp((innerHeight * 0.7 - r.top) / r.height, 0, 1);
+    const sp = clamp((innerHeight * 0.7 - (stepsTop - y)) / stepsH, 0, 1);
     stepsWrap.style.setProperty("--p", sp);
     track.style.setProperty("--p", sp);
-    const horizontal = track.offsetWidth > track.offsetHeight;
-    steps.forEach((s) => {
-      const at = horizontal ? (s.offsetLeft + 32) / stepsWrap.offsetWidth : (s.offsetTop + 40) / stepsWrap.offsetHeight;
-      s.classList.toggle("is-active", sp >= at);
-    });
+    steps.forEach((s, i) => s.classList.toggle("is-active", sp >= stepAt[i]));
 
     updateHeroWindow();
     ticking = false;
   };
-  window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
-  window.addEventListener("resize", onScroll);
-  onScroll();
+  window.addEventListener("scroll", () => { scrollPos = window.scrollY; if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  const remeasure = () => { scrollPos = window.scrollY; measure(); onScroll(); };
+  window.addEventListener("resize", remeasure);
+  window.addEventListener("load", remeasure);
+  if ("ResizeObserver" in window) new ResizeObserver(remeasure).observe(document.body);
+  remeasure();
 
   /* ------------------------------------------------------------------
    * Marquee — speeds up and skews with scroll velocity
@@ -358,15 +366,17 @@ const CONTACT_WHATSAPP = "9746481580";
     const trackEl = $(".marquee__track");
     if (!trackEl || reduced) return;
     const group = $(".marquee__group", trackEl);
-    let x = 0, vel = 0, prevY = window.scrollY, dir = 1, visible = true;
+    let x = 0, vel = 0, prevY = window.scrollY, dir = 1, visible = true, w = group.offsetWidth, sy = prevY;
+    // scrollY is read in the scroll event, where layout is clean, never inside the frame loop.
+    window.addEventListener("scroll", () => { sy = window.scrollY; }, { passive: true });
     new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(trackEl);
+    if ("ResizeObserver" in window) new ResizeObserver(() => { w = group.offsetWidth; }).observe(group);
     const loop = () => {
-      const y = window.scrollY, dy = y - prevY;
+      const y = sy, dy = y - prevY;
       prevY = y;
       if (dy !== 0) dir = dy > 0 ? 1 : -1;
       vel = lerp(vel, clamp(dy, -60, 60), 0.1);
       if (visible) {
-        const w = group.offsetWidth;
         x -= (0.6 + Math.abs(vel) * 0.25) * dir;
         if (x <= -w) x += w;
         if (x > 0) x -= w;

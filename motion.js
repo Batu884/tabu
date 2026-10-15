@@ -7,7 +7,8 @@
   const root = document.documentElement;
   const hero = document.querySelector('.hero');
   const canvas = document.querySelector('.hero__canvas');
-  const ctx = canvas?.getContext('2d', { alpha: true });
+  // cosmos.js draws the hero in WebGL when it can; this 2D field is the fallback.
+  const ctx = root.classList.contains('cosmos-gl') ? null : canvas?.getContext('2d', { alpha: true });
   const sections = [...document.querySelectorAll('main > section[id], .footer')];
   let disposed = false;
   let frameId = 0;
@@ -15,13 +16,12 @@
   let width = 0, height = 0, time = 0, last = 0;
   let px = 0, py = 0, aimX = 0, aimY = 0;
   let scrollFrame = 0;
-  const clamp = (n, a, b) => Math.min(b, Math.max(a, n));
   const mobile = () => innerWidth < 700;
   root.classList.add('motion-studio');
 
   // A projected toroidal field: depth-sorted, additive light, pointer inertia.
   function resize() {
-    if (!ctx) return;
+    if (!ctx) return updateScroll();
     width = hero.clientWidth;
     height = Math.min(hero.clientHeight, innerHeight * 1.65);
     const dpr = Math.min(devicePixelRatio || 1, mobile() ? 1.25 : 1.5);
@@ -98,31 +98,20 @@
   }, { passive: true });
   hero.addEventListener('pointerleave', () => { aimX = aimY = 0; });
 
-  // Only visible sections receive scroll writes. Native scrolling stays intact.
-  const visible = new Set();
+  // Sections only toggle a class here; their chapter lines are scroll-driven in CSS.
   const sectionObserver = new IntersectionObserver(entries => {
-    entries.forEach(({ target, isIntersecting }) => {
-      target.classList.toggle('motion-in-view', isIntersecting);
-      if (isIntersecting) visible.add(target); else visible.delete(target);
-    });
-    updateScroll();
+    entries.forEach(({ target, isIntersecting }) => target.classList.toggle('motion-in-view', isIntersecting));
   }, { rootMargin: '100px 0px' });
   sections.forEach(section => sectionObserver.observe(section));
+  // One inline write on one element per frame: no layout reads, no subtree restyle.
+  const stage = document.querySelector('.hero__stage');
   function updateScroll() {
     scrollFrame = 0;
-    if (disposed) return;
-    visible.forEach(section => {
-      const r = section.getBoundingClientRect();
-      const p = clamp((innerHeight - r.top) / (innerHeight + r.height), 0, 1);
-      section.style.setProperty('--scene', p.toFixed(4));
-    });
-    const y = scrollY;
-    if (heroVisible) {
-      hero.style.setProperty('--hero-travel', `${Math.min(y * .16, 120)}px`);
-      hero.style.setProperty('--hero-fade', Math.max(.22, 1 - y / (innerHeight * 1.3)).toFixed(3));
-    }
+    if (disposed || !heroVisible || !stage) return;
+    stage.style.translate = `0 ${(-Math.min(scrollPos * .16, 120) * .4).toFixed(2)}px`;
   }
-  addEventListener('scroll', () => { if (!scrollFrame && !disposed) scrollFrame = requestAnimationFrame(updateScroll); }, { passive: true });
+  let scrollPos = scrollY;
+  addEventListener('scroll', () => { scrollPos = scrollY; if (!scrollFrame && !disposed) scrollFrame = requestAnimationFrame(updateScroll); }, { passive: true });
   let resizeTimer;
   addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(resize, 150); });
 
@@ -153,6 +142,7 @@
     disposed = true; root.classList.remove('motion-studio'); root.classList.add('reduced');
     suspend(); cancelAnimationFrame(scrollFrame); heroObserver.disconnect(); sectionObserver.disconnect();
     sections.forEach(s => s.classList.remove('motion-in-view'));
+    if (stage) stage.style.translate = '';
     if (ctx) ctx.clearRect(0, 0, width, height);
   }
   reduce.addEventListener('change', stopMotion);

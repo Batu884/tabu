@@ -6,7 +6,6 @@
 .motion-studio .hero__title .line__in { transition-duration: 1.55s; transition-timing-function: cubic-bezier(.16,1,.3,1); }
 .motion-studio .hero__title .grad { background-size: 400% 100%; animation: liquid-type 11s ease-in-out infinite alternate; }
 .motion-studio .hero .lead { position: relative; z-index: 1; }
-.motion-studio .hero__stage { translate: 0 calc(var(--hero-travel, 0px) * -.4); }
 .motion-studio .hero__window { box-shadow: 0 50px 120px #0008, 0 0 100px #ff5b2e18, 0 0 0 1px #ffffff0a; }
 .motion-studio .hero__window::after { content: ''; position: absolute; inset: 0; pointer-events: none; border-radius: inherit; background: linear-gradient(115deg, transparent 30%, #ffffff13 45%, transparent 60%); background-size: 300% 100%; animation: glass-pass 9s ease-in-out infinite; }
 @keyframes liquid-type { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
@@ -14,7 +13,13 @@
 
 /* Persistent visual chapter marks, driven by the viewport. */
 .motion-studio main > .section { isolation: isolate; }
-.motion-studio main > .section::after { content: ''; position: absolute; z-index: -1; pointer-events: none; left: 0; top: 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent, #ff5b2e90 45%, #b7a1ff80 55%, transparent); transform: scaleX(clamp(.1, calc(var(--scene, 0) * 2), 1)); transform-origin: center; opacity: .6; }
+.motion-studio main > .section::after { content: ''; position: absolute; z-index: -1; pointer-events: none; left: 0; top: 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent, #ff5b2e90 45%, #b7a1ff80 55%, transparent); transform: scaleX(.1); transform-origin: center; opacity: .6; transition: transform 1.4s cubic-bezier(.16,1,.3,1); }
+.motion-studio main > .section.motion-in-view::after { transform: scaleX(1); }
+@supports (animation-timeline: view()) {
+  .motion-studio main > .section { view-timeline: --chapter block; }
+  .motion-studio main > .section::after, .motion-studio main > .section.motion-in-view::after { transition: none; animation: chapter-line linear both; animation-timeline: --chapter; animation-range: entry 0% cover 50%; }
+  @keyframes chapter-line { from { transform: scaleX(.1); } to { transform: scaleX(1); } }
+}
 .motion-studio .section__head .kicker::before { transition: width .8s cubic-bezier(.16,1,.3,1); }
 .motion-studio .motion-in-view .section__head .kicker::before { width: 48px; }
 .motion-studio .search-card { position: relative; overflow: hidden; transition: translate .8s cubic-bezier(.16,1,.3,1), border-color .4s, box-shadow .4s; }
@@ -103,7 +108,6 @@
 @media (prefers-reduced-motion: reduce) {
   .hero__canvas { display: none; }
   .signal *, .motion-studio .hero__title .grad { animation: none !important; }
-  .motion-studio .hero__stage { translate: none; }
   .motion-studio .footer__word span { transform: none; }
   .click-wave { display: none; }
 }
