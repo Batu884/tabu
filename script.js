@@ -172,67 +172,8 @@ const CONTACT_WHATSAPP = "9746481580";
 
   runLoader(heroSequence);
 
-  /* ------------------------------------------------------------------
-   * Hero particle network
-   * ------------------------------------------------------------------ */
   const hero = $(".hero");
   const heroMouse = { x: -9999, y: -9999, nx: 0, ny: 0 };
-  (function heroCanvas() {
-    const c = $(".hero__canvas");
-    if (!c || reduced) return;
-    const ctx = c.getContext("2d");
-    let w = 0, h = 0, pts = [], running = true;
-    const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      w = c.clientWidth; h = c.clientHeight;
-      c.width = w * dpr; c.height = h * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const n = Math.min(120, Math.floor((w * h) / 14000));
-      pts = Array.from({ length: n }, () => ({
-        x: Math.random() * w, y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35,
-        r: Math.random() * 1.4 + 0.5,
-      }));
-    };
-    const LINK = 120, MOUSE = 190;
-    const frame = () => {
-      if (!running) return;
-      ctx.clearRect(0, 0, w, h);
-      for (const p of pts) {
-        const dx = heroMouse.x - p.x, dy = heroMouse.y - p.y, d = Math.hypot(dx, dy);
-        if (d < MOUSE && d > 0.1) { p.x -= (dx / d) * 0.6; p.y -= (dy / d) * 0.6; }
-        p.x += p.vx; p.y += p.vy;
-        if (p.x < 0) p.x = w; else if (p.x > w) p.x = 0;
-        if (p.y < 0) p.y = h; else if (p.y > h) p.y = 0;
-      }
-      ctx.lineWidth = 1;
-      for (let i = 0; i < pts.length; i++) {
-        const a = pts[i];
-        for (let j = i + 1; j < pts.length; j++) {
-          const b = pts[j], d = Math.hypot(a.x - b.x, a.y - b.y);
-          if (d < LINK) {
-            ctx.strokeStyle = `rgba(255,255,255,${(1 - d / LINK) * 0.14})`;
-            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
-          }
-        }
-        const dm = Math.hypot(a.x - heroMouse.x, a.y - heroMouse.y);
-        if (dm < MOUSE + 60) {
-          ctx.strokeStyle = `rgba(255,91,46,${(1 - dm / (MOUSE + 60)) * 0.55})`;
-          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(heroMouse.x, heroMouse.y); ctx.stroke();
-        }
-        ctx.fillStyle = dm < MOUSE + 60 ? "rgba(255,154,61,.9)" : "rgba(255,255,255,.45)";
-        ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2); ctx.fill();
-      }
-      requestAnimationFrame(frame);
-    };
-    resize();
-    let rt;
-    window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(resize, 150); });
-    const setRunning = (on) => { if (on && !running) { running = true; requestAnimationFrame(frame); } else if (!on) running = false; };
-    new IntersectionObserver(([e]) => setRunning(e.isIntersecting && !document.hidden)).observe(hero);
-    document.addEventListener("visibilitychange", () => setRunning(!document.hidden && hero.getBoundingClientRect().bottom > 0));
-    requestAnimationFrame(frame);
-  })();
 
   /* ------------------------------------------------------------------
    * Hero mouse parallax + window tilt (tilt also flattens on scroll)
