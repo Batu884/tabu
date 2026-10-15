@@ -1,7 +1,7 @@
 // Address that the contact form sends to. Change this to your real inbox.
 const CONTACT_EMAIL = "hello@tabu.com";
 // Enter the 10-digit Indian WhatsApp number to show the contact link.
-const CONTACT_WHATSAPP = "";
+const CONTACT_WHATSAPP = "9746481580";
 
 (() => {
   const $ = (s, c = document) => c.querySelector(s);
